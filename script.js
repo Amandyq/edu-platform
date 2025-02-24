@@ -41,6 +41,6 @@ window.onload = function() {
     document.getElementById("userRole").innerText = userRole;
     
     if (userRole === "teacher") {
-        document.getElementById("teacherSection").style.display = "block";
+        document.getElementById("teacherSection").classList.remove("hidden");
     }
 };
