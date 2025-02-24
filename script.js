@@ -1,7 +1,17 @@
-/* script.js - Логика */
-function generateID(name) {
-    return name.toLowerCase().replace(/\s/g, '') + Math.floor(1000 + Math.random() * 9000);
-}
+// script.js - Функционал
+
+document.addEventListener("DOMContentLoaded", function() {
+    let userRole = localStorage.getItem("role");
+    let userName = localStorage.getItem("userID");
+    
+    if (userName) {
+        document.getElementById("userName").textContent = userName;
+    }
+    if (userRole) {
+        document.getElementById("userRole").textContent = userRole;
+        showSections(userRole);
+    }
+});
 
 function registerUser() {
     let name = document.getElementById("name").value;
@@ -10,37 +20,42 @@ function registerUser() {
         return;
     }
     
-    let userID = generateID(name);
+    let userID = name.toLowerCase().replace(/\s/g, '') + Math.floor(1000 + Math.random() * 9000);
     let password = Math.random().toString(36).slice(-8);
     let role = prompt("Рөліңізді таңдаңыз: student (оқушы), teacher (мұғалім), admin (админ)").toLowerCase();
     
     if (!["student", "teacher", "admin"].includes(role)) {
-        alert("Қате! Тек 'student', 'teacher' немесе 'admin' деп жазыңыз.");
+        alert("Қате! 'student', 'teacher' немесе 'admin' деп жазыңыз.");
         return;
     }
-
+    
     localStorage.setItem("userID", userID);
     localStorage.setItem("password", password);
     localStorage.setItem("role", role);
-    localStorage.setItem("name", name);
     
     alert(`Сіздің ID: ${userID}\nПароль: ${password}\nРөліңіз: ${role}`);
     window.location.href = "dashboard.html";
+}
+
+function showSections(role) {
+    if (role === "teacher") {
+        document.getElementById("teacherSection").classList.remove("hidden");
+    }
+}
+
+function uploadTask() {
+    let taskTitle = document.getElementById("taskTitle").value;
+    let taskDescription = document.getElementById("taskDescription").value;
+    
+    if (!taskTitle || !taskDescription) {
+        alert("Тапсырманың атауы мен сипаттамасын енгізіңіз!");
+        return;
+    }
+    
+    alert("Тапсырма жүктелді!");
 }
 
 function logoutUser() {
     localStorage.clear();
     window.location.href = "index.html";
 }
-
-window.onload = function() {
-    let userName = localStorage.getItem("name") || "Қолданушы";
-    let userRole = localStorage.getItem("role") || "Бекітілмеген";
-    
-    document.getElementById("userName").innerText = userName;
-    document.getElementById("userRole").innerText = userRole;
-    
-    if (userRole === "teacher") {
-        document.getElementById("teacherSection").classList.remove("hidden");
-    }
-};
