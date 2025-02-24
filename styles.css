@@ -66,13 +66,3 @@ h1, h2, h3 {
 .hidden {
     display: none;
 }
-
-/* Түстер палитрасы (кейін қолдануға дайын) */
-:root {
-    --primary-color: #1E90FF;
-    --secondary-color: #87CEFA;
-    --accent-color: #FFD700;
-    --text-color: #fff;
-    --background-light: rgba(255, 255, 255, 0.2);
-    --background-dark: rgba(255, 255, 255, 0.3);
-}
